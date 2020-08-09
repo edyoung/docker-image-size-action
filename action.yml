@@ -1,18 +1,14 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Image size'
+description: 'Record size of docker image'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  image-name:  # id of input
+    description: 'Name of image'
     required: true
     default: 'World'
 runs:
   using: "composite"
   steps: 
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
     - run: env
       shell: bash
-    - run: docker images
+    - run: docker images ${{ inputs.image-name }}
       shell: bash
-    - run: echo "Nice to meet you!"
-      shell: pwsh
