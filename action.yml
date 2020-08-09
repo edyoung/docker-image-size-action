@@ -5,10 +5,16 @@ inputs:
     description: 'Name of image'
     required: true
     default: 'World'
+  repo-token:
+    description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
+    required: true
+
 runs:
   using: "composite"
   steps: 
     - run: env
       shell: bash
     - run: docker images ${{ inputs.image-name }}
+      shell: bash
+    - run: curl -H "Authorization: token ${{ inputs.repo-token }}" -H "Content-Type: application/vnd.github.VERSION.text+json" https://api.github.com/repos/edyoung/docker-image-size-test/issues/1/comments
       shell: bash
